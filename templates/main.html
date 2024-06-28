@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello, world!</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+    <!-- TODO: Remove dependency -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+    <main class="center-screen">
+        <h1>What do website know about me?</h1>
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr x-data="{ user_agent: navigator.userAgent  }">
+                    <td>UserAgent</td>
+                    <td x-text="user_agent"></td>
+                </tr>
+                <tr x-data="{ oscpu: navigator.oscpu === undefined ? 'unknown' : navigator.oscpu  }">
+                    <td>oscpu</td>
+                    <td x-text="oscpu"></td>
+                </tr>
+                <tr x-data="{ platform: navigator.platform === undefined ? 'unknown' : navigator.platform }">
+                    <td>platform</td>
+                    <td x-text="platform"></td>
+                </tr>
+                <tr>
+                    <td>IP Adress</td>
+                    <td>{{ip}}</td>
+                </tr>
+                <tr x-data="{ memory: navigator.deviceMemory === undefined ? 'unknown' : navigator.deviceMemory + ' GB' }">
+                    <td>Memory</td>
+                    <td x-text="memory"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+    <style>
+        .center-screen {
+            display: flex;
+            text-align: center;
+            min-height: 100vh;
+            flex-direction: column;
+            padding-left: 30vw;
+            /*TODO: Needs to change based on total width*/
+            padding-right: 30vw;
+        }
+    </style>
+</body>
+
+</html>

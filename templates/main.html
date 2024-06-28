@@ -3,11 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Hello, world!</title>
+    <title>Device info</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="" />
-    <link rel="icon" href="favicon.png">
-    <!-- TODO: Remove dependency -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
@@ -15,7 +12,7 @@
 <body>
     <main class="center-screen">
         <h1>What do websites know about me?</h1>
-        <h2>General</h2>
+        <h2>Browser</h2>
         <table class="primary">
             <thead>
                 <tr>
@@ -28,26 +25,21 @@
                     <td>UserAgent</td>
                     <td x-text="user_agent"></td>
                 </tr>
-                <tr x-data="{ oscpu: navigator.oscpu === undefined ? 'unknown' : navigator.oscpu  }">
-                    <td>oscpu</td>
-                    <td x-text="oscpu"></td>
-                </tr>
-                <tr x-data="{ platform: navigator.platform === undefined ? 'unknown' : navigator.platform }">
-                    <td>platform</td>
-                    <td x-text="platform"></td>
-                </tr>
                 <tr>
                     <td>IP Adress</td>
                     <td>{{ip}}</td>
                 </tr>
-                <tr
-                    x-data="{ memory: navigator.deviceMemory === undefined ? 'unknown' : navigator.deviceMemory + '+ GB' }">
-                    <td>Memory</td>
-                    <td x-text="memory"></td>
-                </tr>
                 <tr x-data="{ memory: navigator.doNotTrack === '1' ? 'enabled' : 'disabled' }">
                     <td>Do not track</td>
                     <td x-text="memory"></td>
+                </tr>
+                <tr x-data="{ language: navigator.language }">
+                    <td>Language</td>
+                    <td x-text="language"></td>
+                </tr>
+                <tr x-data="{ languages: navigator.languages }">
+                    <td>Other languages</td>
+                    <td x-text="languages"></td>
                 </tr>
             </tbody>
         </table>
@@ -65,11 +57,17 @@
                     <td>Total size</td>
                     <td x-text="size"></td>
                 </tr>
-                <tr x-data="{ size: document.documentElement.clientWidth + 'x' + document.documentElement.clientHeight  }">
+                <tr
+                    x-data="{ size: document.documentElement.clientWidth + 'x' + document.documentElement.clientHeight  }">
                     <td>Document size</td>
                     <td x-text="size"></td>
                 </tr>
-                <tr x-data="{ touch_screen: navigator.maxTouchPoints === 0 || navigator.maxTouchPoints === undefined ? 'no' : 'yes - ' + navigator.maxTouchPoints + ' touch point(s)' }">
+                <tr x-data="{ depth: window.screen.colorDepth }">
+                    <td>Color depth</td>
+                    <td x-text="depth"></td>
+                </tr>
+                <tr
+                    x-data="{ touch_screen: navigator.maxTouchPoints === 0 || navigator.maxTouchPoints === undefined ? 'false' : 'true - ' + navigator.maxTouchPoints + ' touch point(s)' }">
                     <td>Touch screen</td>
                     <td x-text="touch_screen"></td>
                 </tr>
@@ -89,25 +87,63 @@
                     <td>Online</td>
                     <td x-text="online"></td>
                 </tr>
-                <tr x-data="{ type: navigator.connection === undefined ||  navigator.connection.effectiveType === undefined ?  'unknown' : navigator.connection.effectiveType }">
+                <tr
+                    x-data="{ type: navigator.connection === undefined ||  navigator.connection.effectiveType === undefined ?  'unknown' : navigator.connection.effectiveType }">
                     <td>Effective type</td>
                     <td x-text="type"></td>
                 </tr>
-                <tr x-data="{ downlink: navigator.connection === undefined ||  navigator.connection.downlink === undefined ?  'unknown' : navigator.connection.downlink + ' Mbps' }">
+                <tr
+                    x-data="{ downlink: navigator.connection === undefined ||  navigator.connection.downlink === undefined ?  'unknown' : navigator.connection.downlink + ' Mbps' }">
                     <td>Downlink</td>
                     <td x-text="downlink"></td>
                 </tr>
-                <tr x-data="{ rtt: navigator.connection === undefined || navigator.connection.rtt === undefined ?  'unknown' : navigator.connection.rtt + ' ms' }">
+                <tr
+                    x-data="{ rtt: navigator.connection === undefined || navigator.connection.rtt === undefined ?  'unknown' : navigator.connection.rtt + ' ms' }">
                     <td>Round trip time</td>
                     <td x-text="rtt"></td>
                 </tr>
-                <tr x-data="{ savedata: navigator.connection === undefined || navigator.connection.saveData === undefined ?  'unknown' : navigator.connection.saveData }">
+                <tr
+                    x-data="{ savedata: navigator.connection === undefined || navigator.connection.saveData === undefined ?  'unknown' : navigator.connection.saveData }">
                     <td>Save data</td>
                     <td x-text="savedata"></td>
                 </tr>
-                <tr x-data="{ type: navigator.connection === undefined || navigator.connection.type === undefined ?  'unknown' : navigator.connection.type }">
+                <tr
+                    x-data="{ type: navigator.connection === undefined || navigator.connection.type === undefined ?  'unknown' : navigator.connection.type }">
                     <td>Connection type</td>
                     <td x-text="type"></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Mics</h2>
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    x-data="{ concurrency: navigator.hardwareConcurrency === undefined ? 'unknown' : navigator.hardwareConcurrency }">
+                    <td>Logical processors</td>
+                    <td x-text="concurrency"></td>
+                </tr>
+                <tr
+                    x-data="{ memory: navigator.deviceMemory === undefined ? 'unknown' : navigator.deviceMemory + '+ GB' }">
+                    <td>Memory</td>
+                    <td x-text="memory"></td>
+                </tr>
+                <tr x-data="{ oscpu: navigator.oscpu === undefined ? 'unknown' : navigator.oscpu  }">
+                    <td>oscpu</td>
+                    <td x-text="oscpu"></td>
+                </tr>
+                <tr x-data="{ platform: navigator.platform === undefined ? 'unknown' : navigator.platform }">
+                    <td>platform</td>
+                    <td x-text="platform"></td>
+                </tr>
+                <tr x-data="{ pdf: navigator.pdfViewerEnabled ? 'false' : 'true'  }">
+                    <td>Pdf viewer enabled</td>
+                    <td x-text="pdf"></td>
                 </tr>
             </tbody>
         </table>
@@ -118,9 +154,15 @@
             text-align: center;
             min-height: 100vh;
             flex-direction: column;
-            padding-left: 30vw;
-            /*TODO: Needs to change based on total width*/
-            padding-right: 30vw;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        @media screen and (min-width: 1024px) {
+            .center-screen {
+                padding-left: 30vw;
+                padding-right: 30vw;
+            }
         }
     </style>
 </body>

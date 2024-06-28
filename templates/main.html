@@ -14,7 +14,8 @@
 
 <body>
     <main class="center-screen">
-        <h1>What do website know about me?</h1>
+        <h1>What do websites know about me?</h1>
+        <h2>General</h2>
         <table class="primary">
             <thead>
                 <tr>
@@ -39,13 +40,77 @@
                     <td>IP Adress</td>
                     <td>{{ip}}</td>
                 </tr>
-                <tr x-data="{ memory: navigator.deviceMemory === undefined ? 'unknown' : navigator.deviceMemory + ' GB' }">
+                <tr
+                    x-data="{ memory: navigator.deviceMemory === undefined ? 'unknown' : navigator.deviceMemory + '+ GB' }">
                     <td>Memory</td>
+                    <td x-text="memory"></td>
+                </tr>
+                <tr x-data="{ memory: navigator.doNotTrack === '1' ? 'enabled' : 'disabled' }">
+                    <td>Do not track</td>
                     <td x-text="memory"></td>
                 </tr>
             </tbody>
         </table>
 
+        <h2>Screen</h2>
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr x-data="{ size: window.screen.width + 'x' + window.screen.height  }">
+                    <td>Total size</td>
+                    <td x-text="size"></td>
+                </tr>
+                <tr x-data="{ size: document.documentElement.clientWidth + 'x' + document.documentElement.clientHeight  }">
+                    <td>Document size</td>
+                    <td x-text="size"></td>
+                </tr>
+                <tr x-data="{ touch_screen: navigator.maxTouchPoints === 0 || navigator.maxTouchPoints === undefined ? 'no' : 'yes - ' + navigator.maxTouchPoints + ' touch point(s)' }">
+                    <td>Touch screen</td>
+                    <td x-text="touch_screen"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Network</h2>
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr x-data="{ online: navigator.onLine }">
+                    <td>Online</td>
+                    <td x-text="online"></td>
+                </tr>
+                <tr x-data="{ type: navigator.connection === undefined ||  navigator.connection.effectiveType === undefined ?  'unknown' : navigator.connection.effectiveType }">
+                    <td>Effective type</td>
+                    <td x-text="type"></td>
+                </tr>
+                <tr x-data="{ downlink: navigator.connection === undefined ||  navigator.connection.downlink === undefined ?  'unknown' : navigator.connection.downlink + ' Mbps' }">
+                    <td>Downlink</td>
+                    <td x-text="downlink"></td>
+                </tr>
+                <tr x-data="{ rtt: navigator.connection === undefined || navigator.connection.rtt === undefined ?  'unknown' : navigator.connection.rtt + ' ms' }">
+                    <td>Round trip time</td>
+                    <td x-text="rtt"></td>
+                </tr>
+                <tr x-data="{ savedata: navigator.connection === undefined || navigator.connection.saveData === undefined ?  'unknown' : navigator.connection.saveData }">
+                    <td>Save data</td>
+                    <td x-text="savedata"></td>
+                </tr>
+                <tr x-data="{ type: navigator.connection === undefined || navigator.connection.type === undefined ?  'unknown' : navigator.connection.type }">
+                    <td>Connection type</td>
+                    <td x-text="type"></td>
+                </tr>
+            </tbody>
+        </table>
     </main>
     <style>
         .center-screen {
